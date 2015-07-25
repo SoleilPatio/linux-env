@@ -1,0 +1,10 @@
+# set PATH so it includes user's private bin if it exists
+PATH=".:$HOME/bin:$HOME/linux-env/tools:$HOME/linux-env/tools/gadget:$HOME/Project/bin:$PATH"
+PATH="$PATH:$HOME/bin/glassfish4/bin"
+
+# LANG
+LANG=en_US.UTF-8
+
+# alias
+alias ls='ls -aFh --color=tty'
+
