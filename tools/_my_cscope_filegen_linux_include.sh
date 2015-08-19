@@ -1,18 +1,16 @@
 #!/bin/bash
 
-which find
 
-find  $LNX                                                                \
-	-path "$LNX/arch/*" ! -path "$LNX/arch/arm*" -prune -o               \
-	-path "$LNX/tmp*" -prune -o                                           \
-    -path "$LNX/out*" -prune -o                                           \
-	-path "$LNX/scripts*" -prune -o                                       \
-	-path "$LNX/HTML*" -prune -o                                          \
-    -path "$LNX/Documentation/*.txt" -o \
-    -iname "*.[chxsS]" -o -iname "kconfig" -o -iname "makefile" -o -iname "*_defconfig" -o -iname "*.mk" \
-    >> cscope.files
+find -D tree $LNX 							\
+	\( \(								\
+	-not -path "$LNX/arch/*"    -and 				\
+	-not -path "$LNX/tmp/*"     -and -not -path "$LNX/out/*" -and 	\
+	-not -path "$LNX/scripts/*" -and -not -path "$LNX/HTML/*" 	\
+	\) -or								\
+	\(								\
+	-path "$LNX/arch/arm*" -o -path "$LNX/Documentation/*.txt" 	\
+	\) \) -and							\
+	\( $FILE_TYPE \)						\
 
-   
- 
-#-print >> cscope.files
+
 

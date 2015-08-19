@@ -1,0 +1,18 @@
+*.swp
+
+#[cscope symbol]
+cscope.*
+tags
+gtags.files
+
+#[kernel module]
+Module.symvers
+modules.order
+*.mod.c
+*.o
+*.ko
+*.ko.cmd
+*.o.cmd
+*.mod.o.cmd
+.tmp_versions
+
