@@ -31,6 +31,7 @@ lunch full_k35v1_64_l318-userdebug
 lunch full_evb6755_64-eng
 lunch full_evb6755_64-userdebug
 lunch full_k55v1_64_op01_teldev-userdebug 
+lunch full_k55v1_64-eng
 
 mosesq make -j24 2>&1 | tee build.log
 
