@@ -29,6 +29,9 @@ repomtk sync -q -j8 kernel-3.18
 #3.repo sync -q --j8 rebase to latest code
 #4.repo upload
 
+#[daily build tag]
+git clone http://gerrit.mediatek.inc:8080/alps/build/manifest manifest_build
+
 #[30mins download]
 #/mtkoss/git/mtk_sc list
 #/mtkoss/git/mtk_sc init –v alps-trunk-m0.tk-of.p32
