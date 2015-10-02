@@ -1,6 +1,6 @@
 #!/bin/bash
 LOGFILE=log-repo.log
-
+SEPARATOR="---------------------------------"
 repo-checkout-tag()
 {
 	if [ $# -eq 0 ]
@@ -17,4 +17,17 @@ repo-checkout-tag()
 repo-list-tags()
 {
 	git --git-dir .repo/manifests/.git/ tag -l
+}
+
+repo-manifest-info()
+{
+	echo [manifest list]
+	ls  .repo/manifests
+	echo $SEPARATOR
+	echo [manifest link]
+	ls -l .repo/manifest.xml
+	echo $SEPARATOR
+	echo [git config]
+	cat .repo/manifests/.git/config
+	echo $SEPARATOR
 }

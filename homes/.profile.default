@@ -11,5 +11,7 @@ alias ll='ls -al'
 
 
 #functions
+. ~/linux-env/tools/functions-generic.sh
 . ~/linux-env/tools/functions-repo.sh
+. ~/linux-env/tools/functions-git.sh
 
