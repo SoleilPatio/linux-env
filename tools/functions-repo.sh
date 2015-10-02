@@ -1,4 +1,5 @@
 #!/bin/bash
+LOGFILE=log-repo.log
 
 repo-checkout-tag()
 {
@@ -8,7 +9,12 @@ repo-checkout-tag()
 		echo "==> repo forall -p -c \"git checkout -B TAG_NAME -f TAG_NAME\""
 		return
 	else
-		echo "repo forall -p -c \"git checkout -B $1 -f $1\""
+		echo "repo forall -p -c \"git checkout -B $1 -f $1\"" | tee -a $LOGFILE
 		repo forall -p -c "git checkout -B $1 -f $1"
 	fi
+}
+
+repo-list-tags()
+{
+	git --git-dir .repo/manifests/.git/ tag -l
 }
