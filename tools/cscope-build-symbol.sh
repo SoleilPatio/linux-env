@@ -14,7 +14,9 @@ showHelp()
 
 initVariable()
 {
+	#disable file name expansion first
 	set -f
+	
 	PROFILE=generic
 	OUT_FILE=cscope.files
 	FILE_TYPE="-iname *.[chxsS]   -iname *.c -o -iname kconfig -o -iname makefile  -o \
@@ -23,7 +25,8 @@ initVariable()
 	   -iname *.aidl      -o -iname *.java" 
 	ANDROIDPATH=.
 	LINUXPATH=.
-	FIND_DEBUG=  
+	FIND_DEBUG=
+	FIND_OPT="-type f "  
 }
 
 showInfo()
@@ -36,6 +39,7 @@ showInfo()
 	echo FILE_TYPE=$FILE_TYPE
 	echo OUT_FILE=$OUT_FILE
 	echo FIND_DEBUG=$FIND_DEBUG
+	echo FIND_OPT=$FIND_OPT
 	echo ----------------------------------------
 }
 
@@ -78,7 +82,7 @@ parseArgument()
 genFileListLinux()
 {
 	echo "generating files for Linux...."
-	find $FIND_DEBUG  $LINUXPATH 							\
+	find $FIND_DEBUG  $LINUXPATH $FIND_OPT							\
 		\( \(								\
 		-not -path "$LINUXPATH/arch/*"    -and 				\
 		-not -path "$LINUXPATH/tmp/*"     -and -not -path "$LINUXPATH/out/*" -and 	\
@@ -94,7 +98,7 @@ genFileListLinux()
 genFileListAndroid()
 {
 	echo "generating files for Android...."
-	find $FIND_DEBUG $ANDROIDPATH	\
+	find $FIND_DEBUG $ANDROIDPATH $FIND_OPT	\
 		\( \(		\
 		-not -path "$ANDROIDPATH/kernel-*/*"    -and  -not -path "$ANDROIDPATH/out/*"   -and \
 		-not -path "$ANDROIDPATH/prebuilts/*"   -and  -not -path "$ANDROIDPATH/tools/*" -and \
@@ -113,7 +117,7 @@ genFileListAndroid()
 genFileListGeneric()
 {
 	echo "generating files for Generic...."
-	find $FIND_DEBUG .  \
+	find $FIND_DEBUG . $FIND_OPT \
 		 \( $FILE_TYPE \) 	>> 	$OUT_FILE
 }
 
