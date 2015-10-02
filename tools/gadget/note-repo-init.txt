@@ -21,6 +21,9 @@ repomtk sync -q -j8
 repomtk sync -q -j8 kernel-3.18
 #repomtk sync -d -q -j8 kernel-3.18   #danger!!
 
+#[Get specific version - Google AOSP]
+mtk_repo forall -p -c "git checkout -B android-5.1.1_r18 -f android-5.1.1_r18"
+
 
 #[submit process]
 #0.modify code at build/manifest
