@@ -1,11 +1,12 @@
 #!/bin/bash
 LOGFILE=log-repo.log
 SEPARATOR="---------------------------------"
-repo-checkout-tag()
+
+cls-repo-checkout-tag()
 {
 	if [ $# -eq 0 ]
 	then
-		echo repo-checkout-tag TAG_NAME
+		echo ${FUNCNAME[ 0 ]} TAG_NAME
 		echo "==> repo forall -p -c \"git checkout -B TAG_NAME -f TAG_NAME\""
 		return
 	else
@@ -14,20 +15,35 @@ repo-checkout-tag()
 	fi
 }
 
-repo-list-tags()
+cls-repo-list-tags()
 {
-	git --git-dir .repo/manifests/.git/ tag -l
+	cls-find-up .repo
+	echo FIND_UP_RESULT=$FIND_UP_RESULT
+		
+	git --git-dir $FIND_UP_RESULT/manifests/.git/ tag -l
 }
 
-repo-manifest-info()
+cls-repo-info()
 {
+	cls-find-up .repo
+	echo FIND_UP_RESULT=$FIND_UP_RESULT
+	
 	echo [manifest list]
-	ls  .repo/manifests
+	ls  $FIND_UP_RESULT/manifests
 	echo $SEPARATOR
 	echo [manifest link]
-	ls -l .repo/manifest.xml
+	ls -l $FIND_UP_RESULT/manifest.xml
 	echo $SEPARATOR
 	echo [git config]
-	cat .repo/manifests/.git/config
+	cat $FIND_UP_RESULT/manifests/.git/config
 	echo $SEPARATOR
+}
+
+cls-repo-grep-manifest()
+{
+	cls-find-up .repo
+	echo FIND_UP_RESULT=$FIND_UP_RESULT
+	
+	grep -i $1 $FIND_UP_RESULT/manifest.xml
+	
 }

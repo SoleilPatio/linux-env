@@ -1,9 +1,12 @@
 #!/bin/bash
 SEPARATOR="---------------------------------"
-git-info()
+cls-git-info()
 {
+	cls-find-up .git
+	echo FIND_UP_RESULT=$FIND_UP_RESULT
+	
 	echo [git config]
-	cat .git/config
+	cat $FIND_UP_RESULT/config
 	echo $SEPARATOR
 	
 	echo [local branch]

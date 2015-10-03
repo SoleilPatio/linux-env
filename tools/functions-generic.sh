@@ -1,17 +1,43 @@
 #!/bin/bash
 SEPARATOR="---------------------------------"
-note-list()
+cls-find-up()
+{
+	#find up cscope.files
+	find_dir=$(pwd -P 2>/dev/null || command pwd)
+	while [ ! -e "$find_dir/$1" ]; do
+		find_dir=${find_dir%/*}
+		if [ "$find_dir" = "" ]; then break; fi
+	done
+	
+	FIND_UP_RESULT=$find_dir/$1
+}
+
+cls-reload()
+{
+	. ~/.profile
+	. ~/.bashrc
+}
+
+cls-note-list()
 {
 	ls ~/linux-env/tools/gadget/note-*.txt
 
 }
 
-ff()
+cls-ff()
 {
+
 	if [ $# -gt 0 ]
 	then
-		grep $1 cscope.files
+		cls-find-up cscope.files
+		echo FIND_UP_RESULT=$FIND_UP_RESULT
+		grep -i $1 $FIND_UP_RESULT
 	else
-		echo ff FILENAME_PATTERN
+		echo ${FUNCNAME[ 0 ]} FILENAME_PATTERN
 	fi
+}
+
+cls-test()
+{
+	echo "I am test2"
 }
