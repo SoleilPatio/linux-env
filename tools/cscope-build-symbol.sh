@@ -3,11 +3,14 @@
 
 showHelp()
 {
-	echo "$0  [-D] -profile=android|linux|generic -androidpath=ANDROID_PATH -linuxpath=LINUX_PATH -filter='mtXXXX mtXXXX mtXXXX'"
+	echo ""
+	echo "Usage:"
+	echo "$SCRIPT_NAME  [-D] [-fileonly] -profile=android|linux|generic -androidpath=ANDROID_PATH -linuxpath=LINUX_PATH -filter='mtXXXX mtXXXX mtXXXX'"
+	echo ""
 	echo "-D: \"find -D tree\" debug"
 	echo ""
 	echo "ex."
-	echo "cscope-build-symbol.sh -p=android -a=. -l=./kernel-3.10/ -f='mt6735 mt6755 mt6753'"
+	echo "$SCRIPT_NAME -p=android -a=. -l=./kernel-3.10 -f='mt6735 mt6755 mt6753'"
 	echo ""
 	
 }
@@ -17,6 +20,7 @@ initVariable()
 	#disable file name expansion first
 	set -f
 	
+	
 	PROFILE=generic
 	OUT_FILE=cscope.files
 	FILE_TYPE="-iname *.[chxsS] -o -iname *.c		-o -iname kconfig	-o -iname makefile	-o \
@@ -25,7 +29,9 @@ initVariable()
 	   -iname *.aidl      		-o -iname *.java" 
 	ANDROIDPATH=.
 	LINUXPATH=.
-	FIND_OPT="-type f "
+	FIND_OPT1="-L" #follow link
+	FIND_OPT2="-type f"
+	FIND_EXEC="-exec realpath {} ;"
 	OPT_FIND_DEBUG=
 	OPT_FILE_ONLY=false  
 }
@@ -33,13 +39,16 @@ initVariable()
 showInfo()
 {
 	echo [Config] -------------------------------
+	echo SCRIPT_NAME=$SCRIPT_NAME
 	echo PROFILE=$PROFILE
 	echo ANDROIDPATH=$ANDROIDPATH
 	echo LINUXPATH=$LINUXPATH
 	echo FILTER=$FILTER
 	echo FILE_TYPE=$FILE_TYPE
 	echo OUT_FILE=$OUT_FILE
-	echo FIND_OPT=$FIND_OPT
+	echo FIND_OPT1=$FIND_OPT1
+	echo FIND_OPT2=$FIND_OPT2
+	echo FIND_EXEC=$FIND_EXEC
 	echo OPT_FIND_DEBUG=$OPT_FIND_DEBUG
 	echo OPT_FILE_ONLY=$OPT_FILE_ONLY
 	echo ----------------------------------------
@@ -58,10 +67,14 @@ parseArgument()
 	    
 	    -a=*|-androidpath=*)
 	    ANDROIDPATH=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+	    #strip "/",for find compare
+		ANDROIDPATH=${ANDROIDPATH%/}
 	    ;;
 	    
 	    -l=*|-linuxpath=*)
 	    LINUXPATH=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+	    #strip "/",for find compare
+		LINUXPATH=${LINUXPATH%/}
 	    ;;
 	    
 	    -f=*|-filter=*)
@@ -88,7 +101,7 @@ parseArgument()
 genFileListLinux()
 {
 	echo "generating files for Linux...."
-	find $OPT_FIND_DEBUG  $LINUXPATH $FIND_OPT							\
+	find $FIND_OPT1 $OPT_FIND_DEBUG  $LINUXPATH $FIND_OPT							\
 		\( \(								\
 		-not -path "$LINUXPATH/arch/*"    -and 				\
 		-not -path "$LINUXPATH/tmp/*"     -and -not -path "$LINUXPATH/out/*" -and 	\
@@ -97,14 +110,14 @@ genFileListLinux()
 		\(								\
 		-path "$LINUXPATH/arch/arm*" -o -path "$LINUXPATH/Documentation/*.txt" 	\
 		\) \) -and							\
-		\( $FILE_TYPE \)	>> 	$OUT_FILE
+		\( $FILE_TYPE \)	$FIND_EXEC >> 	$OUT_FILE
 		
 }
 
 genFileListAndroid()
 {
 	echo "generating files for Android...."
-	find $OPT_FIND_DEBUG $ANDROIDPATH $FIND_OPT	\
+	find $FIND_OPT1 $OPT_FIND_DEBUG $ANDROIDPATH $FIND_OPT	\
 		\( \(		\
 		-not -path "$ANDROIDPATH/kernel-*/*"    -and  -not -path "$ANDROIDPATH/out/*"   -and \
 		-not -path "$ANDROIDPATH/prebuilts/*"   -and  -not -path "$ANDROIDPATH/tools/*" -and \
@@ -117,14 +130,14 @@ genFileListAndroid()
 		\(				\
 		-path "$ANDROIDPATH/hardware/mediatek/*" -o -path "$ANDROIDPATH/hardware/libhardware/*" -o -path "$ANDROIDPATH/hardware/libhardware_legacy/*"	\
 		\) \) -and 			\
-		\( $FILE_TYPE \)	>> 	$OUT_FILE
+		\( $FILE_TYPE \)	$FIND_EXEC >> 	$OUT_FILE
 }
 
 genFileListGeneric()
 {
 	echo "generating files for Generic...."
-	find $OPT_FIND_DEBUG . $FIND_OPT \
-		 \( $FILE_TYPE \) 	>> 	$OUT_FILE
+	find $FIND_OPT1 $OPT_FIND_DEBUG . $FIND_OPT \
+		 \( $FILE_TYPE \) 	$FIND_EXEC >> 	$OUT_FILE
 }
 
 filterMtPlatform()
@@ -173,6 +186,7 @@ buildCscopeSymbol()
 
 
 #Main Part---------------------------------------------------------------
+SCRIPT_NAME=$(basename $0)
 
 #echo $#
 #if [ $# -eq 0 ]
