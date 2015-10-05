@@ -6,6 +6,8 @@ PATH="$PATH:$HOME/bin/glassfish4/bin"
 LANG=en_US.UTF-8
 
 # alias
+unalias ls
+unalias ll
 alias ls='ls -aFh --color=tty'
 alias ll='ls -al'
 

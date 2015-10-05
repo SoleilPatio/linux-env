@@ -14,8 +14,10 @@ cls-find-up()
 
 cls-reload()
 {
-	. ~/.profile > /dev/null 2>&1
+#Run 1st
 	. ~/.bashrc > /dev/null 2>&1
+#Run 2nd
+	. ~/.profile > /dev/null 2>&1
 }
 
 cls-note-list()
