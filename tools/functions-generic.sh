@@ -14,8 +14,8 @@ cls-find-up()
 
 cls-reload()
 {
-	. ~/.profile
-	. ~/.bashrc
+	. ~/.profile > /dev/null 2>&1
+	. ~/.bashrc > /dev/null 2>&1
 }
 
 cls-note-list()
@@ -34,6 +34,17 @@ cls-ff()
 		grep -i $1 $FIND_UP_RESULT
 	else
 		echo ${FUNCNAME[ 0 ]} FILENAME_PATTERN
+	fi
+}
+
+cls-cd()
+{
+
+	if [ $# -gt 0 ]
+	then
+		cd $(dirname `realpath $1`)
+	else
+echo ${FUNCNAME[ 0 ]} SYMBOLIC_LINK_FILE
 	fi
 }
 

@@ -19,14 +19,15 @@ initVariable()
 	
 	PROFILE=generic
 	OUT_FILE=cscope.files
-	FILE_TYPE="-iname *.[chxsS]   -iname *.c -o -iname kconfig -o -iname makefile  -o \
-	   -iname *_defconfig -o -iname *.mk    -o -iname *.aidl    -o \
-	   -iname *.cc        -o -iname *.cpp   -o -iname *.cxx     -o -iname *.hpp -o\
-	   -iname *.aidl      -o -iname *.java" 
+	FILE_TYPE="-iname *.[chxsS] -o -iname *.c		-o -iname kconfig	-o -iname makefile	-o \
+	   -iname *_defconfig		-o -iname *.mk		-o -iname *.aidl	-o \
+	   -iname *.cc        		-o -iname *.cpp		-o -iname *.cxx		-o -iname *.hpp		-o\
+	   -iname *.aidl      		-o -iname *.java" 
 	ANDROIDPATH=.
 	LINUXPATH=.
-	FIND_DEBUG=
-	FIND_OPT="-type f "  
+	FIND_OPT="-type f "
+	OPT_FIND_DEBUG=
+	OPT_FILE_ONLY=false  
 }
 
 showInfo()
@@ -38,8 +39,9 @@ showInfo()
 	echo FILTER=$FILTER
 	echo FILE_TYPE=$FILE_TYPE
 	echo OUT_FILE=$OUT_FILE
-	echo FIND_DEBUG=$FIND_DEBUG
 	echo FIND_OPT=$FIND_OPT
+	echo OPT_FIND_DEBUG=$OPT_FIND_DEBUG
+	echo OPT_FILE_ONLY=$OPT_FILE_ONLY
 	echo ----------------------------------------
 }
 
@@ -67,7 +69,11 @@ parseArgument()
 	    ;;
 	    
 	    -D)
-	    FIND_DEBUG="-D tree"
+	    OPT_FIND_DEBUG="-D tree"
+	    ;;
+	    
+		-fileonly)
+	    OPT_FILE_ONLY=true
 	    ;;
 	    
 	    *)
@@ -82,7 +88,7 @@ parseArgument()
 genFileListLinux()
 {
 	echo "generating files for Linux...."
-	find $FIND_DEBUG  $LINUXPATH $FIND_OPT							\
+	find $OPT_FIND_DEBUG  $LINUXPATH $FIND_OPT							\
 		\( \(								\
 		-not -path "$LINUXPATH/arch/*"    -and 				\
 		-not -path "$LINUXPATH/tmp/*"     -and -not -path "$LINUXPATH/out/*" -and 	\
@@ -98,7 +104,7 @@ genFileListLinux()
 genFileListAndroid()
 {
 	echo "generating files for Android...."
-	find $FIND_DEBUG $ANDROIDPATH $FIND_OPT	\
+	find $OPT_FIND_DEBUG $ANDROIDPATH $FIND_OPT	\
 		\( \(		\
 		-not -path "$ANDROIDPATH/kernel-*/*"    -and  -not -path "$ANDROIDPATH/out/*"   -and \
 		-not -path "$ANDROIDPATH/prebuilts/*"   -and  -not -path "$ANDROIDPATH/tools/*" -and \
@@ -117,7 +123,7 @@ genFileListAndroid()
 genFileListGeneric()
 {
 	echo "generating files for Generic...."
-	find $FIND_DEBUG . $FIND_OPT \
+	find $OPT_FIND_DEBUG . $FIND_OPT \
 		 \( $FILE_TYPE \) 	>> 	$OUT_FILE
 }
 
@@ -203,7 +209,12 @@ case $PROFILE in
 filterMtPlatform $FILTER
 
 #4. build symbol
-buildCscopeSymbol
+if [ $OPT_FILE_ONLY = true ]
+then
+	echo "Bypass cscope symbol generation."
+else
+	buildCscopeSymbol
+fi
 	    
 
 
