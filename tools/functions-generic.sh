@@ -12,6 +12,11 @@ cls-find-up()
 	FIND_UP_RESULT=$find_dir/$1
 }
 
+cls-kern-log()
+{
+	sudo tail -f /var/log/kern.log
+}
+
 cls-reload()
 {
 #Run 1st
