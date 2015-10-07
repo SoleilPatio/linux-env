@@ -5,6 +5,11 @@
 #alps-trunk-m0.bsp
 #alps-trunk-m0.tk
 
+#[google android]
+repo init -u https://android.googlesource.com/platform/manifest
+repo init -u https://android.googlesource.com/platform/manifest 
+
+
 #[platform:latest code/upload]
 repomtk init -u http://gerrit.mediatek.inc:8080/alps/platform/manifest -b alps-trunk-m0.tk -m manifest-hq.xml
 
