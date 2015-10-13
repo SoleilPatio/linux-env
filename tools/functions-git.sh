@@ -17,3 +17,11 @@ cls-git-info()
 	git status
 	echo $SEPARATOR
 }
+
+cls-git-show-local-commit()
+{
+	echo "These commits haven't been push or upload.."
+	echo ""
+	git log @{u}.. $*
+}
+
