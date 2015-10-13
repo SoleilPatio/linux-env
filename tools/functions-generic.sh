@@ -27,9 +27,44 @@ cls-reload()
 
 cls-note-list()
 {
-	ls ~/linux-env/tools/gadget/note-*.txt
-
+	ls ~/linux-env/tools/notes/note-*.txt
 }
+
+cls-note()
+{
+	_NOTEFILE=$1
+	if [ $# -gt 1 ]
+	then
+		if [ $2 = "e" ]
+		then
+		gvim $_NOTEFILE
+		fi
+	else
+		cat $_NOTEFILE
+	fi 
+}
+
+cls-note-build-android()
+{
+	cls-note ~/linux-env/tools/notes/note-build-android.txt $1
+}
+
+cls-note-build-linux()
+{
+	cls-note ~/linux-env/tools/notes/note-build-linux.txt $1
+}
+
+cls-note-build-symbol()
+{
+	cls-note ~/linux-env/tools/notes/note-build-symbol.txt $1
+}
+
+cls-note-repo-init()
+{
+	cls-note ~/linux-env/tools/notes/note-repo-init.txt $1
+}
+
+
 
 cls-ff()
 {

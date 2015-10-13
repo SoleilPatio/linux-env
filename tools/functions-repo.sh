@@ -17,7 +17,7 @@ cls-repo-init()
 	if [ $# -eq 0 ]
 	then
 		echo "Usage:"
-		echo "${FUNCNAME[ 0 ]} [google|alps|alpsbuild] [google:REVISION|BRANCH|TAG / alps_build:yyyy_mm_dd ]"
+		echo "${FUNCNAME[ 0 ]} [google|alps|alpsbuild] [google:REVISION|BRANCH|TAG / alps_build:yyyy_mm_dd_tt ]"
 		echo "==> repo init -u https://android.googlesource.com/platform/manifest -b REVISION_OF_MANIFEST"
 		echo ""
 		return
