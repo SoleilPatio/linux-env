@@ -21,21 +21,40 @@ repomtk init -u http://gerrit.mediatek.inc:8080/alps/build/manifest -b alps-trun
 ln -s /mtkoss/git/hooks/wsd/prepare-commit-msg .repo/repo/hooks/
 
 
-#[Sync]
+#[Sync: get the specific revision]
 repomtk sync -q -j8 
 repomtk sync -q -j8 kernel-3.18
 #repomtk sync -d -q -j8 kernel-3.18   #danger!!
 
 #[Get specific version - Google AOSP]
-mtk_repo forall -p -c "git checkout -B android-5.1.1_r18 -f android-5.1.1_r18"
+#No need if checkout specific version of manifest. revision is assigned in XML
+#mtk_repo forall -p -c "git checkout -B android-5.1.1_r18 -f android-5.1.1_r18"
 
 
-#[submit process]
-#0.modify code at build/manifest
-#1.commit at build/manifest
-#2.repo re-init to platform/manifest
-#3.repo sync -q --j8 rebase to latest code
-#4.repo upload
+#[Code modification]
+#1.modify code under build/manifest
+#2.commit code under build/manifest
+#3.stach untracked files
+git stash
+#4.repo re-init to platform/manifest
+#5.repo sync -q --j8 rebase to latest code
+#6.repo upload
+#7.un stash
+git stash list / git stash show
+git stash pop
+
+
+#[Start new branch to work]
+1.git stash untrack files
+2.repo init new manefist.xml
+3.repo sync -d ( ==> this will switch to detached branch)
+4.repo start <branch>
+
+
+#------------------------------------------------------------------------------------
+# APPENDIX
+#------------------------------------------------------------------------------------
+
 
 #[daily build tag]
 git clone http://gerrit.mediatek.inc:8080/alps/build/manifest manifest_build
