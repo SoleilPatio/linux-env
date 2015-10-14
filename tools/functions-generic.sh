@@ -25,6 +25,32 @@ cls-reload()
 	. ~/.profile > /dev/null 2>&1
 }
 
+
+
+cls-ff()
+{
+
+	if [ $# -gt 0 ]
+	then
+		cls-find-up cscope.files
+		echo FIND_UP_RESULT=$FIND_UP_RESULT
+		grep -i $1 $FIND_UP_RESULT
+	else
+		echo ${FUNCNAME[ 0 ]} FILENAME_PATTERN
+	fi
+}
+
+cls-cd()
+{
+
+	if [ $# -gt 0 ]
+	then
+		cd $(dirname `realpath $1`)
+	else
+		echo ${FUNCNAME[ 0 ]} SYMBOLIC_LINK_FILE
+	fi
+}
+
 cls-note-list()
 {
 	ls ~/linux-env/tools/notes/note-*.txt
@@ -64,33 +90,9 @@ cls-note-repo-init()
 	cls-note ~/linux-env/tools/notes/note-repo-init.txt $1
 }
 
-
-
-cls-ff()
+cls-ubuntu-update()
 {
-
-	if [ $# -gt 0 ]
-	then
-		cls-find-up cscope.files
-		echo FIND_UP_RESULT=$FIND_UP_RESULT
-		grep -i $1 $FIND_UP_RESULT
-	else
-		echo ${FUNCNAME[ 0 ]} FILENAME_PATTERN
-	fi
-}
-
-cls-cd()
-{
-
-	if [ $# -gt 0 ]
-	then
-		cd $(dirname `realpath $1`)
-	else
-echo ${FUNCNAME[ 0 ]} SYMBOLIC_LINK_FILE
-	fi
-}
-
-cls-test()
-{
-	echo "I am test2"
+	sudo apt-get update        # Fetches the list of available updates
+	sudo apt-get upgrade       # Strictly upgrades the current packages
+	sudo apt-get dist-upgrade  # Installs updates (new ones)
 }
