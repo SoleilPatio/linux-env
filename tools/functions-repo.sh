@@ -13,54 +13,94 @@ cls-repo-setenv-LOGFILE()
 
 cls-repo-init()
 {
+	echo "[Profile]:"
+	echo "1:Google Android"
+	echo "2:Alps"
+	echo "3:Alps Build"
+	echo ""
+	read -p "Input : " in_profile </dev/tty
 	
-	if [ $# -eq 0 ]
-	then
-		echo "Usage:"
-		echo "${FUNCNAME[ 0 ]} [google|alps|alpsbuild] [google:REVISION|BRANCH|TAG / alps_build:yyyy_mm_dd_tt ]"
-		echo "==> repo init -u https://android.googlesource.com/platform/manifest -b REVISION_OF_MANIFEST"
-		echo ""
-		return
-	fi
-
-
-	if [ -z "$2" ]
-	then
-		_REVISION=master
-	else
-		_REVISION=$2
-	fi
-
-
-	case $1 in
-	google)
+	case "$in_profile" in
+	1) 
+		in_profile=google
 		_REPO_URL="https://android.googlesource.com/platform/manifest"
-		;;
-
-	alps)
+    	;;
+	2) 
+		in_profile=alps
 		_REPO_URL="http://gerrit.mediatek.inc:8080/alps/platform/manifest"
-		_REVISION="alps-trunk-m0.tk -m manifest-hq.xml"
-		;;
-
-	alpsbuild)
-		_REPO_URL="http://gerrit.mediatek.inc:8080/alps/build/manifest"
-		_REVISION="alps-trunk-m0.tk -m $2-hq.xml"
-		;;
-
-	*)
-		echo Unknown profile : $1
-		echo "valid profile is [google|alps|alpsbuild]"
-		exit
-		;;
+    	;;
+    3)
+    	in_profile=alpsbuild
+    	_REPO_URL="http://gerrit.mediatek.inc:8080/alps/build/manifest"
+    	;;
+    *)
+    	echo "Invalid input."
+    	return
 	esac
+	
+	echo "----------------------------------------------------------------------------"
+	echo "in_profile = "$in_profile
+	echo "_REPO_URL = "$_REPO_URL
+	echo "----------------------------------------------------------------------------"
 
-
-
+	echo "[Branch/Tags/Revision]:"
+	if   [ $in_profile = google ]
+	then
+		in_branch=master
+		echo "master"
+		echo "android-6.0.0_r1"
+		echo ""
+		read -e -p "Input : " -i "$in_branch" in_branch </dev/tty
+		
+	
+	elif [ $in_profile = alps ] || [ $in_profile = alpsbuild ]
+	then
+		in_branch=alps-trunk-m0.tk
+		echo "alps-trunk-m0.tk"
+		echo "alps-mp-m0.mp1"
+		echo ""
+		read -e -p "Input : " -i "$in_branch" in_branch </dev/tty
+		
+	fi
+	
+	echo "----------------------------------------------------------------------------"
+	echo "in_branch = "$in_branch
+	echo "----------------------------------------------------------------------------"
+	
+	
+	echo "[Manifest]:"
+	if   [ $in_profile = google ]
+	then
+		in_manifest=default.xml
+	
+	elif [ $in_profile = alps ]
+	then
+		in_manifest=manifest-hq.xml
+		
+	elif [ $in_profile = alpsbuild ]
+	then
+		in_manifest=2015_10_13_02_00
+		echo "2015_10_13_02_00"
+		echo ""
+		read -e -p "Input : " -i "$in_manifest" in_manifest </dev/tty
+		in_manifest=$in_manifest-hq.xml
+		
+	fi
+	
+	echo "----------------------------------------------------------------------------"
+	echo "in_manifest = "$in_manifest
+	echo "----------------------------------------------------------------------------"
 	
 	cls-repo-setenv-LOGFILE
-	echo "repo init -u $_REPO_URL -b $_REVISION" | tee -a $LOGFILE
-	repo init -u $_REPO_URL -b $_REVISION
+	_EXECMD="repo init -u $_REPO_URL -b $in_branch -m $in_manifest"
+	echo "Execute :"
+	echo $_EXECMD | tee -a $LOGFILE
+	echo "----------------------------------------------------------------------------"
+	time $_EXECMD
+		
 }
+
+
 
 cls-repo-checkout-tag()
 {
