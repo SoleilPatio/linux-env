@@ -152,6 +152,6 @@ cls-repo-grep-manifest()
 	cls-find-up .repo
 	echo FIND_UP_RESULT=$FIND_UP_RESULT
 	
-	grep -i $1 $FIND_UP_RESULT/manifest.xml
+	grep -i $1 $FIND_UP_RESULT/manifest.xml $FIND_UP_RESULT/manifests/hq-only.xml $FIND_UP_RESULT/manifests/sub.xml $FIND_UP_RESULT/manifests/aosp.xml $FIND_UP_RESULT/manifests/trusty.xml
 	
 }
