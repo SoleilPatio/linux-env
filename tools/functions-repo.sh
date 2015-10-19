@@ -94,7 +94,9 @@ cls-repo-init()
 	cls-repo-setenv-LOGFILE
 	_EXECMD="repo init -u $_REPO_URL -b $in_branch -m $in_manifest"
 	echo "Execute :"
+	cls-color-HEAD
 	echo $_EXECMD | tee -a $LOGFILE
+	cls-color-reset
 	echo "----------------------------------------------------------------------------"
 	time $_EXECMD
 		

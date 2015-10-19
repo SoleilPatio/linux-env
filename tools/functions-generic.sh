@@ -27,6 +27,7 @@ cls-reload()
 
 
 
+
 cls-ff()
 {
 
@@ -58,6 +59,11 @@ cls-note-list()
 
 cls-note()
 {
+	cls-color-HEAD
+	echo command: ${FUNCNAME[ 0 ]} [e]
+	echo "   e : edit note"
+	cls-color-reset
+
 	_NOTEFILE=$1
 	if [ $# -gt 1 ]
 	then
@@ -95,4 +101,29 @@ cls-ubuntu-update()
 	sudo apt-get update        # Fetches the list of available updates
 	sudo apt-get upgrade       # Strictly upgrades the current packages
 	sudo apt-get dist-upgrade  # Installs updates (new ones)
+}
+
+cls-color()
+{
+	echo -e "\e[$*m"
+}
+
+cls-color-reset()
+{
+	cls-color 0
+}
+
+cls-color-blue()
+{
+	cls-color 34
+}
+
+cls-color-bg-blue()
+{
+	cls-color 44
+}
+
+cls-color-HEAD()
+{
+	cls-color-bg-blue
 }
