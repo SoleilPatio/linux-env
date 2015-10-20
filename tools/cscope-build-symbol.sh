@@ -23,7 +23,7 @@ initVariable()
 	
 	PROFILE=generic
 	OUT_FILE=cscope.files
-	FILE_TYPE="-iname *.[chxsS] 	-o -iname kconfig	-o -iname makefile	-o \
+	FILE_TYPE="-iname *.[chxsS] 	-o -iname kconfig	-o -iname makefile	-o -iname *.dts		-o -iname *.dtsi 	-o\
 	   -iname *_defconfig		-o -iname *.mk		-o -iname *.aidl	-o \
 	   -iname *.cc        		-o -iname *.cpp		-o -iname *.cxx		-o -iname *.hpp		-o\
 	   -iname *.aidl      		-o -iname *.java" 
@@ -65,39 +65,39 @@ parseArgument()
 	#
 	for i in "$@"
 	do
-	case $i in
-	    -p=*|-profile=*)
-	    PROFILE=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
-	    ;;
-	    
-	    -a=*|-androidpath=*)
-	    ANDROIDPATH=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
-	    #strip "/",for find compare
-		ANDROIDPATH=${ANDROIDPATH%/}
-	    ;;
-	    
-	    -l=*|-linuxpath=*)
-	    LINUXPATH=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
-	    #strip "/",for find compare
-		LINUXPATH=${LINUXPATH%/}
-	    ;;
-	    
-	    -f=*|-filter=*)
-	    FILTER=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
-	    ;;
-	    
-	    -D)
-	    OPT_FIND_DEBUG="-D tree"
-	    ;;
-	    
-		-fileonly)
-	    OPT_FILE_ONLY=true
-	    ;;
-	    
-	    *)
-	            # unknown option
-	    ;;
-	esac
+		case $i in
+			-p=*|-profile=*)
+				PROFILE=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+				;;
+				    
+			-a=*|-androidpath=*)
+				ANDROIDPATH=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+				#strip "/",for find compare
+				ANDROIDPATH=${ANDROIDPATH%/}
+				;;
+			    
+			-l=*|-linuxpath=*)
+				LINUXPATH=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+				#strip "/",for find compare
+				LINUXPATH=${LINUXPATH%/}
+				;;
+			    
+			-f=*|-filter=*)
+				FILTER=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
+				;;
+			    
+			-D)
+				OPT_FIND_DEBUG="-D tree"
+				;;
+			    
+			-fileonly)
+				OPT_FILE_ONLY=true
+				;;
+			    
+			*)
+				# unknown option
+				;;
+		esac
 	done
 	
 	#
@@ -238,25 +238,25 @@ case $PROFILE in
 	android)
 		genFileListLinux	$LINUXPATH $LINUX_ARCH
 		genFileListAndroid	$ANDROIDPATH
-	    ;;
+		;;
     
-    linux)
-	    genFileListLinux	$LINUXPATH $LINUX_ARCH
-	    ;;
+	linux)
+		genFileListLinux	$LINUXPATH $LINUX_ARCH
+	    	;;
     
-    generic)
-	    genFileListGeneric
-	    ;;
+	generic)
+		genFileListGeneric
+	    	;;
     
-    ubuntu_ko)
-    	genFileListGeneric
-    	genFileListLinux	$LINUXPATH $LINUX_ARCH
-    	;;
+	ubuntu_ko)
+    		genFileListGeneric
+		genFileListLinux	$LINUXPATH $LINUX_ARCH
+    		;;
     
-    *)
+    	*)
 		echo Unknown profile : $PROFILE
 		exit
-	    ;;
+		;;
 esac
 	    
 #3. filter
