@@ -10,6 +10,7 @@ unalias ls
 unalias ll
 alias ls='ls -aFh --color=tty'
 alias ll='ls -al'
+alias less='less -r'
 
 
 #functions

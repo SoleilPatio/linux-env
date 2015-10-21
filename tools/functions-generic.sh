@@ -41,6 +41,25 @@ cls-ff()
 	fi
 }
 
+
+cls-grep()
+{
+
+	if [ $# -gt 0 ]
+	then
+		cls-find-up cscope.files
+		echo FIND_UP_RESULT=$FIND_UP_RESULT
+		_CMD="cat $FIND_UP_RESULT | xargs grep  --color=always -n $* 2>/dev/null "
+		cls-color-HEAD
+		echo $_CMD
+		cls-color-reset
+		cat $FIND_UP_RESULT | xargs grep  --color=always -n $* 2>/dev/null
+	else
+		echo ${FUNCNAME[ 0 ]} PATTERN [GREP_OPTIONS]
+	fi
+}
+
+
 cls-cd()
 {
 
