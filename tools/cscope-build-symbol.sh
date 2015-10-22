@@ -24,7 +24,7 @@ initVariable()
 	PROFILE=generic
 	OUT_FILE=cscope.files
 	FILE_TYPE="-iname *.[chxsS] 	-o -iname kconfig	-o -iname makefile	-o -iname *.dts		-o -iname *.dtsi 	-o\
-	   -iname *_defconfig		-o -iname *.mk		-o -iname *.aidl	-o \
+	   -iname *_defconfig		-o -iname *.mk		-o -iname *.aidl	-o -iname *.txt		-o -iname README	-o\
 	   -iname *.cc        		-o -iname *.cpp		-o -iname *.cxx		-o -iname *.hpp		-o\
 	   -iname *.aidl      		-o -iname *.java" 
 	ANDROIDPATH=.
@@ -66,6 +66,11 @@ parseArgument()
 	for i in "$@"
 	do
 		case $i in
+			-h)
+				showHelp
+				exit
+				;;
+
 			-p=*|-profile=*)
 				PROFILE=`echo $i | sed 's/[-a-zA-Z0-9]*=//'`
 				;;
@@ -96,6 +101,9 @@ parseArgument()
 			    
 			*)
 				# unknown option
+				echo "Unknown option : $i"
+				echo "-h : Help"
+				exit
 				;;
 		esac
 	done
@@ -139,7 +147,7 @@ genFileListLinux()
 		-not -path "$LINUXPATH/scripts/*" -and -not -path "$LINUXPATH/HTML/*" 	\
 		\) -or								\
 		\(								\
-		-path "$LINUXPATH/arch/$2*" -o -path "$LINUXPATH/Documentation/*.txt" 	\
+		-path "$LINUXPATH/arch/$2*"					\
 		\) \) -and							\
 		\( $FILE_TYPE \)	$FIND_EXEC >> 	$OUT_FILE
 		
@@ -154,9 +162,8 @@ genFileListAndroid()
 		-not -path "$ANDROIDPATH/prebuilts/*"   -and  -not -path "$ANDROIDPATH/tools/*" -and \
 		-not -path "$ANDROIDPATH/development/*" -and  -not -path "$ANDROIDPATH/ndk/*"   -and \
 		-not -path "$ANDROIDPATH/sdk/*"         -and  -not -path "$ANDROIDPATH/docs/*"  -and  -not -path "$ANDROIDPATH/native-toolchain/*" -and \
-		-not -path "$ANDROIDPATH/external/*"    -and  -not -path "$ANDROIDPATH/cts/*"   -and  -not -path "$ANDROIDPATH/developers/*" -and  \
-		-not -path "$ANDROIDPATH/HTML/*"  -and 	\
-		-not -path "$ANDROIDPATH/hardware/*"   	\
+		-not -path "$ANDROIDPATH/cts/*"         -and  -not -path "$ANDROIDPATH/developers/*" -and  \
+		-not -path "$ANDROIDPATH/hardware/*"   	-and  -not -path "$ANDROIDPATH/external/*" \
 		\) -or				\
 		\(				\
 		-path "$ANDROIDPATH/hardware/mediatek/*" -o -path "$ANDROIDPATH/hardware/libhardware/*" -o -path "$ANDROIDPATH/hardware/libhardware_legacy/*"	\
@@ -219,11 +226,6 @@ buildCscopeSymbol()
 #Main Part---------------------------------------------------------------
 SCRIPT_NAME=$(basename $0)
 
-#echo $#
-#if [ $# -eq 0 ]
-#then
-	showHelp
-#fi
 
 #0. Setup
 initVariable
