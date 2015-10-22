@@ -25,7 +25,10 @@ cls-reload()
 	. ~/.profile > /dev/null 2>&1
 }
 
-
+cls-edit-functions()
+{
+	gvim ~/linux-env/tools/functions-*.sh ~/linux-env/tools/cscope-build-symbol.sh
+}
 
 
 cls-ff()
@@ -35,7 +38,7 @@ cls-ff()
 	then
 		cls-find-up cscope.files
 		echo FIND_UP_RESULT=$FIND_UP_RESULT
-		grep -i $1 $FIND_UP_RESULT
+		grep -i --color=always $1 $FIND_UP_RESULT
 	else
 		echo ${FUNCNAME[ 0 ]} FILENAME_PATTERN
 	fi
@@ -69,6 +72,31 @@ cls-cd()
 	else
 		echo ${FUNCNAME[ 0 ]} SYMBOLIC_LINK_FILE
 	fi
+}
+
+cls-tar-create()
+{
+	_DIRNAME=${1%/}
+
+	_CMD="tar -cvf $_DIRNAME.tar $_DIRNAME"
+	cls-color-HEAD
+	echo command: $_CMD
+	cls-color-reset
+
+	$_CMD
+
+}
+
+cls-tar-list()
+{
+
+	_CMD="tar -tf $1"
+	cls-color-HEAD
+	echo command: $_CMD
+	cls-color-reset
+
+	$_CMD
+
 }
 
 cls-note-list()
