@@ -1,6 +1,6 @@
 #!/bin/bash
 SEPARATOR="---------------------------------"
-cls-find-up()
+cls_find_up()
 {
 	#find up cscope.files
 	find_dir=$(pwd -P 2>/dev/null || command pwd)
@@ -12,12 +12,12 @@ cls-find-up()
 	FIND_UP_RESULT=$find_dir/$1
 }
 
-cls-kern-log()
+cls_kern_log()
 {
 	sudo tail -f /var/log/kern.log
 }
 
-cls-reload()
+cls_reload()
 {
 #Run 1st
 	. ~/.bashrc > /dev/null 2>&1
@@ -25,18 +25,18 @@ cls-reload()
 	. ~/.profile > /dev/null 2>&1
 }
 
-cls-edit-functions()
+cls_edit_functions()
 {
 	gvim ~/linux-env/tools/functions-*.sh ~/linux-env/tools/cscope-build-symbol.sh
 }
 
 
-cls-ff()
+cls_ff()
 {
 
 	if [ $# -gt 0 ]
 	then
-		cls-find-up cscope.files
+		cls_find_up cscope.files
 		echo FIND_UP_RESULT=$FIND_UP_RESULT
 		grep -i --color=always $1 $FIND_UP_RESULT
 	else
@@ -45,17 +45,17 @@ cls-ff()
 }
 
 
-cls-grep()
+cls_grep()
 {
 
 	if [ $# -gt 0 ]
 	then
-		cls-find-up cscope.files
+		cls_find_up cscope.files
 		echo FIND_UP_RESULT=$FIND_UP_RESULT
 		_CMD="cat $FIND_UP_RESULT | xargs grep  --color=always -n $* 2>/dev/null "
-		cls-color-HEAD
+		cls_color_HEAD
 		echo $_CMD
-		cls-color-reset
+		cls_color_reset
 		cat $FIND_UP_RESULT | xargs grep  --color=always -n $* 2>/dev/null
 	else
 		echo ${FUNCNAME[ 0 ]} PATTERN [GREP_OPTIONS]
@@ -63,7 +63,7 @@ cls-grep()
 }
 
 
-cls-cd()
+cls_cd()
 {
 
 	if [ $# -gt 0 ]
@@ -74,42 +74,42 @@ cls-cd()
 	fi
 }
 
-cls-tar-create()
+cls_tar_create()
 {
 	_DIRNAME=${1%/}
 
 	_CMD="tar -cvf $_DIRNAME.tar $_DIRNAME"
-	cls-color-HEAD
+	cls_color_HEAD
 	echo command: $_CMD
-	cls-color-reset
+	cls_color_reset
 
 	$_CMD
 
 }
 
-cls-tar-list()
+cls_tar_list()
 {
 
 	_CMD="tar -tf $1"
-	cls-color-HEAD
+	cls_color_HEAD
 	echo command: $_CMD
-	cls-color-reset
+	cls_color_reset
 
 	$_CMD
 
 }
 
-cls-note-list()
+cls_note_list()
 {
 	ls ~/linux-env/tools/notes/note-*.txt
 }
 
-cls-note()
+cls_note()
 {
-	cls-color-HEAD
+	cls_color_HEAD
 	echo command: ${FUNCNAME[ 0 ]} [e]
 	echo "   e : edit note"
-	cls-color-reset
+	cls_color_reset
 
 	_NOTEFILE=$1
 	if [ $# -gt 1 ]
@@ -123,54 +123,54 @@ cls-note()
 	fi 
 }
 
-cls-note-build-android()
+cls_note_build_android()
 {
-	cls-note ~/linux-env/tools/notes/note-build-android.txt $1
+	cls_note ~/linux-env/tools/notes/note-build-android.txt $1
 }
 
-cls-note-build-linux()
+cls_note_build_linux()
 {
-	cls-note ~/linux-env/tools/notes/note-build-linux.txt $1
+	cls_note ~/linux-env/tools/notes/note-build-linux.txt $1
 }
 
-cls-note-build-symbol()
+cls_note_build_symbol()
 {
-	cls-note ~/linux-env/tools/notes/note-build-symbol.txt $1
+	cls_note ~/linux-env/tools/notes/note-build-symbol.txt $1
 }
 
-cls-note-repo-init()
+cls_note_repo_init()
 {
-	cls-note ~/linux-env/tools/notes/note-repo-init.txt $1
+	cls_note ~/linux-env/tools/notes/note-repo-init.txt $1
 }
 
-cls-ubuntu-update()
+cls_ubuntu_update()
 {
 	sudo apt-get update        # Fetches the list of available updates
 	sudo apt-get upgrade       # Strictly upgrades the current packages
 	sudo apt-get dist-upgrade  # Installs updates (new ones)
 }
 
-cls-color()
+cls_color()
 {
 	echo -e "\e[$*m"
 }
 
-cls-color-reset()
+cls_color_reset()
 {
-	cls-color 0
+	cls_color 0
 }
 
-cls-color-blue()
+cls_color_blue()
 {
-	cls-color 34
+	cls_color 34
 }
 
-cls-color-bg-blue()
+cls_color_bg_blue()
 {
-	cls-color 44
+	cls_color 44
 }
 
-cls-color-HEAD()
+cls_color_HEAD()
 {
-	cls-color-bg-blue
+	cls_color_bg_blue
 }

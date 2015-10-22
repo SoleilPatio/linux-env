@@ -2,16 +2,16 @@
 LOGFILE=log-repo.log
 SEPARATOR="---------------------------------"
 
-cls-repo-setenv-LOGFILE()
+cls_repo_setenv_LOGFILE()
 {
-	cls-find-up .repo
+	cls_find_up .repo
 	echo FIND_UP_RESULT=$FIND_UP_RESULT
 		
 	LOGFILE=$FIND_UP_RESULT/../log-repo.log
 
 }
 
-cls-repo-init()
+cls_repo_init()
 {
 	echo "[Profile]:"
 	echo "1:Google Android"
@@ -91,12 +91,12 @@ cls-repo-init()
 	echo "in_manifest = "$in_manifest
 	echo "----------------------------------------------------------------------------"
 	
-	cls-repo-setenv-LOGFILE
+	cls_repo_setenv_LOGFILE
 	_EXECMD="repo init -u $_REPO_URL -b $in_branch -m $in_manifest"
 	echo "Execute :"
-	cls-color-HEAD
+	cls_color_HEAD
 	echo $_EXECMD | tee -a $LOGFILE
-	cls-color-reset
+	cls_color_reset
 	echo "----------------------------------------------------------------------------"
 	time $_EXECMD
 		
@@ -104,7 +104,7 @@ cls-repo-init()
 
 
 
-cls-repo-checkout-tag()
+cls_repo_checkout_tag()
 {
 	if [ $# -eq 0 ]
 	then
@@ -112,23 +112,23 @@ cls-repo-checkout-tag()
 		echo "==> repo forall -p -c \"git checkout -B TAG_NAME -f TAG_NAME\""
 		return
 	else
-		cls-repo-setenv-LOGFILE
+		cls_repo_setenv_LOGFILE
 		echo "repo forall -p -c \"git checkout -B $1 -f $1\"" | tee -a $LOGFILE
 		repo forall -p -c "git checkout -B $1 -f $1"
 	fi
 }
 
-cls-repo-list-tags()
+cls_repo_list_tags()
 {
-	cls-find-up .repo
+	cls_find_up .repo
 	echo FIND_UP_RESULT=$FIND_UP_RESULT
 		
 	git --git-dir $FIND_UP_RESULT/manifests/.git/ tag -l
 }
 
-cls-repo-info()
+cls_repo_info()
 {
-	cls-find-up .repo
+	cls_find_up .repo
 	echo FIND_UP_RESULT=$FIND_UP_RESULT
 	
 	echo [manifest list]
@@ -149,9 +149,9 @@ cls-repo-info()
 
 }
 
-cls-repo-grep-manifest()
+cls_repo_grep_manifest()
 {
-	cls-find-up .repo
+	cls_find_up .repo
 	echo FIND_UP_RESULT=$FIND_UP_RESULT
 	
 	grep -i $1 $FIND_UP_RESULT/manifest.xml $FIND_UP_RESULT/manifests/hq-only.xml $FIND_UP_RESULT/manifests/sub.xml $FIND_UP_RESULT/manifests/aosp.xml $FIND_UP_RESULT/manifests/trusty.xml

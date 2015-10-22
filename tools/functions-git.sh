@@ -1,8 +1,8 @@
 #!/bin/bash
 SEPARATOR="---------------------------------"
-cls-git-info()
+cls_git_info()
 {
-	cls-find-up .git
+	cls_find_up .git
 	echo FIND_UP_RESULT=$FIND_UP_RESULT
 	
 	echo [git config]
@@ -18,11 +18,11 @@ cls-git-info()
 	echo $SEPARATOR
 }
 
-cls-git-show-local-commit()
+cls_git_show_local_commit()
 {
-	cls-color-HEAD
+	cls_color_HEAD
 	echo -e "command: git log `git symbolic-ref HEAD` --not --remotes $*"
-	cls-color-reset
+	cls_color_reset
 
 	git log `git symbolic-ref HEAD` --not --remotes $*
 	#git log @{u}.. $*
