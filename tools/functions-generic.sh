@@ -1,6 +1,6 @@
 #!/bin/bash
 SEPARATOR="---------------------------------"
-cls-find-up()
+cls_find_up()
 {
 	#find up cscope.files
 	find_dir=$(pwd -P 2>/dev/null || command pwd)
