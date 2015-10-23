@@ -1,6 +1,6 @@
 #!/bin/bash
 SEPARATOR="---------------------------------"
-cls_find_up()
+cls-find-up()
 {
 	#find up cscope.files
 	find_dir=$(pwd -P 2>/dev/null || command pwd)
@@ -22,7 +22,7 @@ cls_reload()
 #Run 1st
 	. ~/.bashrc > /dev/null 2>&1
 #Run 2nd
-	. ~/.profile > /dev/null 2>&1
+#	. ~/.profile > /dev/null 2>&1
 }
 
 cls_edit_functions()
