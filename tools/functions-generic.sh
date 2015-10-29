@@ -89,7 +89,7 @@ cls_grep_kernel_doc()
 
 
 
-		_CMD="grep --color=always -n -R $* $_KERN_DOC_DIR"
+		_CMD="grep -i --color=always -n -R $* $_KERN_DOC_DIR"
 
 		cls_color_HEAD
 		echo $_CMD
