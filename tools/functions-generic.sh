@@ -10,7 +10,16 @@ cls_find_up()
 	done
 	
 	FIND_UP_RESULT=$find_dir/$1
+
+	echo $FIND_UP_RESULT
 }
+
+cls_relative_path()
+{
+	RELATIVE_PATH_RESULT=`python -c "import os.path; print os.path.relpath('$1', '.')"`
+	echo $RELATIVE_PATH_RESULT
+}
+
 
 cls_kern_log()
 {
@@ -20,7 +29,7 @@ cls_kern_log()
 cls_reload()
 {
 #Run 1st
-	. ~/.bashrc > /dev/null 2>&1
+	. ~/.bashrc > /dev/null 
 #Run 2nd
 #	. ~/.profile > /dev/null 2>&1
 }
@@ -29,6 +38,7 @@ cls_edit_functions()
 {
 	gvim ~/linux-env/tools/functions-*.sh ~/linux-env/tools/cscope-build-symbol.sh
 }
+
 
 
 cls_ff()
@@ -60,6 +70,36 @@ cls_grep()
 	else
 		echo ${FUNCNAME[ 0 ]} PATTERN [GREP_OPTIONS]
 	fi
+}
+
+cls_grep_kernel_doc()
+{
+	if [ $# -gt 0 ]
+	then
+
+		cls_find_up cscope.files
+		_FILELIST=$FIND_UP_RESULT
+		echo FIND_UP_RESULT=$_FILELIST
+
+		_KERN_DOC_DIR=`awk '{if (match($0, /.*\/kernel-[^\/]*\/Documentation/,m )) { print m[0]; exit;} }' $_FILELIST`
+		echo KERN_DOC_DIR=$_KERN_DOC_DIR
+
+		_KERN_DOC_DIR=`cls_relative_path $_KERN_DOC_DIR`
+		echo "KERN_DOC_DIR(relative)=$_KERN_DOC_DIR"
+
+
+
+		_CMD="grep --color=always -n -R $* $_KERN_DOC_DIR"
+
+		cls_color_HEAD
+		echo $_CMD
+		cls_color_reset
+
+		$_CMD
+	else
+		echo ${FUNCNAME[ 0 ]} PATTERN [GREP_OPTIONS]
+	fi
+	
 }
 
 
