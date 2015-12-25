@@ -183,6 +183,11 @@ cls_note_repo_init()
 	cls_note ~/linux-env/tools/notes/note-repo-init.txt $1
 }
 
+cls_note_command()
+{
+	cls_note ~/linux-env/tools/notes/note-command.txt $1
+}
+
 cls_ubuntu_update()
 {
 	sudo apt-get update        # Fetches the list of available updates

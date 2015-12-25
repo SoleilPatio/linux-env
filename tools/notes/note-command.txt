@@ -1,0 +1,17 @@
+[repo]
+repo abandon 2015_11_13_02_0
+repo forall -p -c "git checkout -B android-5.1.1_r18 -f android-5.1.1_r18"
+
+[git]
+git show HEAD:pmic.c
+
+
+[linux]
+addr2line -e ./out/target/product/mt6575_evb/symbols/system/lib/libmhaldrv.so d322
+
+[android]
+#power button
+adb shell input keyevent 26
+
+#unlock screen
+adb shell input keyevent 82
