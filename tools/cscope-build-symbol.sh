@@ -25,7 +25,7 @@ initVariable()
 	OUT_FILE=cscope.files
 	FILE_TYPE="-iname *.[chxsS] 	-o -iname kconfig	-o -iname makefile	-o -iname *.dts		-o -iname *.dtsi 	-o\
 	   -iname *_defconfig		-o -iname *.mk		-o -iname *.aidl	-o -iname *.txt		-o -iname README	-o\
-	   -iname *.cc        		-o -iname *.cpp		-o -iname *.cxx		-o -iname *.hpp		-o\
+	   -iname *.cc        		-o -iname *.cpp		-o -iname *.cxx		-o -iname *.hpp		-o -iname *.rc		-o\
 	   -iname *.aidl      		-o -iname *.java" 
 	ANDROIDPATH=.
 	LINUXPATH=.
@@ -140,8 +140,9 @@ parseArgument()
 genFileListLinux()
 {
 	echo "generating files for Linux...."
-	find $FIND_OPT1 $OPT_FIND_DEBUG  $1 $FIND_OPT							\
+	find $FIND_OPT1 $OPT_FIND_DEBUG  $1 $FIND_OPT2				\
 		\( \(								\
+		-not -path "*/\.*"		  -and	 			\
 		-not -path "$LINUXPATH/arch/*"    -and 				\
 		-not -path "$LINUXPATH/tmp/*"     -and -not -path "$LINUXPATH/out/*" -and 	\
 		-not -path "$LINUXPATH/scripts/*" -and -not -path "$LINUXPATH/HTML/*" 	\
@@ -156,8 +157,9 @@ genFileListLinux()
 genFileListAndroid()
 {
 	echo "generating files for Android...."
-	find $FIND_OPT1 $OPT_FIND_DEBUG $1 $FIND_OPT	\
+	find $FIND_OPT1 $OPT_FIND_DEBUG $1 $FIND_OPT2	\
 		\( \(		\
+		-not -path "*/\.*" 			-and \
 		-not -path "$ANDROIDPATH/kernel-*/*"    -and  -not -path "$ANDROIDPATH/out/*"   -and \
 		-not -path "$ANDROIDPATH/prebuilts/*"   -and  -not -path "$ANDROIDPATH/tools/*" -and \
 		-not -path "$ANDROIDPATH/development/*" -and  -not -path "$ANDROIDPATH/ndk/*"   -and \
@@ -174,7 +176,8 @@ genFileListAndroid()
 genFileListGeneric()
 {
 	echo "generating files for Generic...."
-	find $FIND_OPT1 $OPT_FIND_DEBUG . $FIND_OPT \
+	find $FIND_OPT1 $OPT_FIND_DEBUG . $FIND_OPT2 \
+		-not -path "*/\.*" \
 		 \( $FILE_TYPE \) 	$FIND_EXEC >> 	$OUT_FILE
 }
 
