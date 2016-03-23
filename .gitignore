@@ -1,4 +1,7 @@
 *.swp
+#[eclipse]
+.buildpath
+.project
 
 #[cscope symbol]
 cscope.*

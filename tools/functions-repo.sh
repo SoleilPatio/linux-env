@@ -29,13 +29,13 @@ cls_repo_init()
 		in_profile=alps
 		_REPO_URL="http://gerrit.mediatek.inc:8080/alps/platform/manifest"
     	;;
-    3)
-    	in_profile=alpsbuild
-    	_REPO_URL="http://gerrit.mediatek.inc:8080/alps/build/manifest"
+	3)
+		in_profile=alpsbuild
+		_REPO_URL="http://gerrit.mediatek.inc:8080/alps/build/manifest"
     	;;
-    *)
-    	echo "Invalid input."
-    	return
+	*)
+    		echo "Invalid input."
+	    	return
 	esac
 	
 	echo "----------------------------------------------------------------------------"
@@ -55,7 +55,8 @@ cls_repo_init()
 	
 	elif [ $in_profile = alps ] || [ $in_profile = alpsbuild ]
 	then
-		in_branch=alps-trunk-m0.tk
+		#Assign default value
+		in_branch=alps-trunk-m1.tk
 		echo "alps-trunk-m0.tk"
 		echo "alps-mp-m0.mp1"
 		echo ""
@@ -95,10 +96,24 @@ cls_repo_init()
 	_EXECMD="repo init -u $_REPO_URL -b $in_branch -m $in_manifest"
 	echo "Execute :"
 	cls_color_HEAD
-	echo $_EXECMD | tee -a $LOGFILE
+	echo "$_EXECMD | tee -a $LOGFILE"
 	cls_color_reset
 	echo "----------------------------------------------------------------------------"
-	time $_EXECMD
+	time $_EXECMD | tee -a $LOGFILE
+
+
+	
+	#Special command for LFK repo
+	if [ $in_profile = alps ] || [ $in_profile = alpsbuild ]
+	then
+		_EXECMD="ln -s /mtkoss/git/hooks/wsd/prepare-commit-msg .repo/repo/hooks/"
+		echo "Execute :"
+		cls_color_HEAD
+		echo $_EXECMD
+		cls_color_reset
+		$_EXECMD
+	fi
+
 		
 }
 
