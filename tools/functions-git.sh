@@ -28,3 +28,12 @@ cls_git_show_local_commit()
 	#git log @{u}.. $*
 }
 
+cls_git_log()
+{
+	cls_color_HEAD
+	echo -e "command: git log --pretty=format:%h%x09%an%x09%cd%x09%cr%x09%s%x09 $*"
+	cls_color_reset
+
+	git log --pretty=format:%h%x09%an%x09%cd%x09%cr%x09%s%x09 $* 
+
+}
