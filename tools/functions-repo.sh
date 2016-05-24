@@ -49,6 +49,7 @@ cls_repo_init()
 		in_branch=master
 		echo "master"
 		echo "android-6.0.0_r1"
+		echo "refs/tags/<tag_name>"
 		echo ""
 		read -e -p "Input : " -i "$in_branch" in_branch </dev/tty
 		
@@ -59,6 +60,7 @@ cls_repo_init()
 		in_branch=alps-trunk-m1.tk
 		echo "alps-trunk-m0.tk"
 		echo "alps-mp-m0.mp1"
+		echo "refs/tags/t-alps-mp-m1.mp3-of.p10 (equal to latest version in LFK)"
 		echo ""
 		read -e -p "Input : " -i "$in_branch" in_branch </dev/tty
 		

@@ -6,12 +6,12 @@ PATH="$PATH:$HOME/bin/glassfish4/bin"
 LANG=en_US.UTF-8
 
 # alias
-if [ $(type -t ls) == "alias" ]
+if [[ $(type -t ls) == "alias" ]]
 	then
 	unalias ls
 fi
 
-if [ $(type -t ll) == "alias" ]
+if [[ $(type -t ll) == "alias" ]]
 	then
 	unalias ll
 fi
@@ -19,7 +19,7 @@ fi
 alias ls='ls -aFh --color=tty'
 alias ll='ls -al'
 alias less='less -r'
-
+alias mosesq='mosesq  . ~/linux-env/homes/.bashrc.default;'
 
 #functions
 . ~/linux-env/tools/functions-generic.sh

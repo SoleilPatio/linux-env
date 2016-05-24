@@ -219,9 +219,12 @@ filterMtPlatform()
 buildCscopeSymbol()
 {
 	echo "build cscope symbols in background...."
-	rm tags
-	ctags -R -L cscope.files &
-	cscope -b -q &
+	echo "remove old files...."
+	rm tags cscope.out cscope.po.out  cscope.in.out
+	echo "execute ctags..."
+	ctags -R -L cscope.files 
+	echo "execute cscope...."
+	cscope -b -q 
 }
 
 

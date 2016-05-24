@@ -1,11 +1,12 @@
 [repo]
 repo abandon 2015_11_13_02_0
-repo forall -p -c "git checkout -B android-5.1.1_r18 -f android-5.1.1_r18"
+repo forall -p -c "git checkout -B <branch_name> <start_point:tag_name>
 
 [git]
 git show HEAD:pmic.c      #show complete source file
 git diff HEAD~2..HEAD     #compare difference from grandparent to current(include uncommit)
 git log --pretty=oneline --abbrev-commit    #git log title only
+git diff <commit-ish>:./ -- <path>   #local uncommit v.s. some commit version
 
 [linux]
 addr2line -e ./out/target/product/mt6575_evb/symbols/system/lib/libmhaldrv.so d322
