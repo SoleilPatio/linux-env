@@ -26,7 +26,7 @@ initVariable()
 	FILE_TYPE="-iname *.[chxsS] 	-o -iname kconfig	-o -iname makefile	-o -iname *.dts		-o -iname *.dtsi 	-o\
 	   -iname *_defconfig		-o -iname *.mk		-o -iname *.aidl	-o -iname *.txt		-o -iname README	-o\
 	   -iname *.cc        		-o -iname *.cpp		-o -iname *.cxx		-o -iname *.hpp		-o -iname *.rc		-o\
-	   -iname *.aidl      		-o -iname *.java" 
+	   -iname *.aidl      		-o -iname *.java	-o -iname *.py" 
 	ANDROIDPATH=.
 	LINUXPATH=.
 	LINUX_ARCH=arm

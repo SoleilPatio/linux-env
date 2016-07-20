@@ -72,6 +72,8 @@ map <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 map <F3> :set mouse=nvi<CR>
 map <F4> :set mouse=<CR>
+"map <MiddleMouse> <Nop>
+"imap <MiddleMouse> <Nop>
 
 "Open and close all the three plugins on the same time
 map <F7> :TrinityToggleAll<CR>

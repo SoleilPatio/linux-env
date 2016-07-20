@@ -1,12 +1,24 @@
 [repo]
 repo abandon 2015_11_13_02_0
 repo forall -p -c "git checkout -B <branch_name> <start_point:tag_name>
+mosesq repo forall -p -c "git checkout -B tag-alps-mp-m1.mp3-of.p11 t-alps-mp-m1.mp3-of.p11"
 
 [git]
 git show HEAD:pmic.c      #show complete source file
 git diff HEAD~2..HEAD     #compare difference from grandparent to current(include uncommit)
 git log --pretty=oneline --abbrev-commit    #git log title only
 git diff <commit-ish>:./ -- <path>   #local uncommit v.s. some commit version
+
+[mtk_sc]
+mtk_sc list
+
+mtk_sc init -b alps-mp-m1.mp3 -v alps-mp-m1.mp3-of.p12 -m userdebug -p evb6757_64_6630_userdebug -r gitmtk/alps-mp-m1.mp3-of.p12
+
+export OUT_DIR=out_evb6757_64_6630_userdebug
+
+mtk_sc delete -r gitmtk/alps-mp-m1.mp3-of.p12 [-f]
+
+
 
 [linux]
 addr2line -e ./out/target/product/mt6575_evb/symbols/system/lib/libmhaldrv.so d322

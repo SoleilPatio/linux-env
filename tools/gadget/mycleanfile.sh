@@ -1,4 +1,4 @@
 #!/bin/bash
 
-~/alps.l1/kernel-3.10/scripts/cleanfile $1
+~/gitmtk/alps-trunk-m0.tk/kernel-3.18/scripts/cleanfile $1
 

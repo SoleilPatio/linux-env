@@ -19,7 +19,7 @@ fi
 alias ls='ls -aFh --color=tty'
 alias ll='ls -al'
 alias less='less -r'
-alias mosesq='mosesq  . ~/linux-env/homes/.bashrc.default;'
+alias mymosesq='mosesq  . ~/linux-env/homes/.bashrc.default;'
 
 #functions
 . ~/linux-env/tools/functions-generic.sh
