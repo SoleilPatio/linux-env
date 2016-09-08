@@ -28,13 +28,20 @@ lunch full_evb6755_64-eng
 lunch full_evb6755_64-userdebug
 lunch full_k55v1_64_op01_teldev-userdebug 
 lunch full_k55v1_64-userdebug 
-lunch full_k55v1_64_op02-userdebug 
+lunch full_k55v1_64_op02-userdebug
+lunch full_k55v1_op02-eng   #32-bit for t32?
 
 #Olympus
 lunch full_evb6757_64-eng
 lunch full_evb6757_64-userdebug
 lunch full_k57v1_om_lwctg_lm-userdebug 
 lunch full_k57v1_om_lwctg_lm-eng
+lunch full_k57v1_op02-userdebug
 
+#Whitney
+lunch full_fpga6799_64_ufs-eng
+lunch full_fpga6799_64_sspm-eng
+lunch full_evb99v1_64_ufs-userdebug
+ 
 mosesq make -j24 2>&1 | tee build.log
-
+repo sync -f -cq --no-tags -j24 --no-clone-bundle -d
