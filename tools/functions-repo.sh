@@ -57,7 +57,7 @@ cls_repo_init()
 	elif [ $in_profile = alps ] || [ $in_profile = alpsbuild ]
 	then
 		#Assign default value
-		in_branch=alps-trunk-m1.tk
+		in_branch=alps-trunk-n0.tk
 		echo "alps-trunk-m0.tk"
 		echo "alps-mp-m0.mp1"
 		echo "refs/tags/t-alps-mp-m1.mp3-of.p10 (equal to latest version in LFK)"
@@ -82,7 +82,7 @@ cls_repo_init()
 		
 	elif [ $in_profile = alpsbuild ]
 	then
-		in_manifest=2015_10_13_02_00
+		in_manifest=2016_08_13_02_00
 		echo "2015_10_13_02_00"
 		echo ""
 		read -e -p "Input : " -i "$in_manifest" in_manifest </dev/tty
@@ -173,4 +173,17 @@ cls_repo_grep_manifest()
 	
 	grep -i $1 $FIND_UP_RESULT/manifest.xml $FIND_UP_RESULT/manifests/hq-only.xml $FIND_UP_RESULT/manifests/sub.xml $FIND_UP_RESULT/manifests/aosp.xml $FIND_UP_RESULT/manifests/trusty.xml
 	
+}
+
+cls_repo_sync()
+{
+	cls_repo_setenv_LOGFILE
+	_EXECMD="repo sync -f -cq --no-tags -j24 --no-clone-bundle $@"
+	echo "Execute :"
+	cls_color_HEAD
+	echo "$_EXECMD | tee -a $LOGFILE"
+	cls_color_reset
+	echo "----------------------------------------------------------------------------"
+	time $_EXECMD | tee -a $LOGFILE
+
 }

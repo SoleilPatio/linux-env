@@ -139,6 +139,72 @@ cls_tar_list()
 
 }
 
+
+CLS_DIFF_TOOL=meld
+
+cls_diff_config()
+{
+	if [ $1 = "clear" ]
+	then
+		CLS_DIFF_SRC=
+		CLS_DIFF_DST=
+
+	elif [ $# -eq 2 ]
+	then
+		CLS_DIFF_SRC=$1
+		CLS_DIFF_DST=$2
+	
+	elif [ $# -ge 3 ]
+	then
+		CLS_DIFF_SRC=$1
+		CLS_DIFF_DST=$2
+		CLS_DIFF_TOOL=$3
+
+	else
+		cls_color_HEAD
+		echo command: ${FUNCNAME[ 0 ]} "\$CLS_DIFF_SRC \$CLS_DIFF_DST [meld|p4merge]" 
+		echo command: ${FUNCNAME[ 0 ]} clear       "(clear src,dst but not tool)"
+		cls_color_reset
+
+	fi
+	
+	
+	cls_color_HEAD
+	echo current setting:
+	echo CLS_DIFF_SRC=$CLS_DIFF_SRC
+	echo CLS_DIFF_DST=$CLS_DIFF_DST
+	echo CLS_DIFF_TOOL=$CLS_DIFF_TOOL
+	cls_color_reset
+
+}
+
+cls_diff()
+{
+	if [ $# -eq 0 ]
+	then
+		cls_color_HEAD
+		echo command: ${FUNCNAME[ 0 ]} filename
+		echo
+		echo current setting:
+		echo CLS_DIFF_SRC=$CLS_DIFF_SRC
+		echo CLS_DIFF_DST=$CLS_DIFF_DST
+		echo CLS_DIFF_TOOL=$CLS_DIFF_TOOL
+		cls_color_reset
+
+	else
+		for var in "$@"
+		do
+			cls_color_HEAD
+			echo $CLS_DIFF_TOOL $CLS_DIFF_SRC/$var $CLS_DIFF_DST/$var
+			cls_color_reset
+		
+			$CLS_DIFF_TOOL $CLS_DIFF_SRC/$var $CLS_DIFF_DST/$var &
+		done
+
+	fi 
+
+}
+
 cls_note_list()
 {
 	ls ~/linux-env/tools/notes/note-*.txt

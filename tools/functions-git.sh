@@ -37,3 +37,12 @@ cls_git_log()
 	git log --pretty=format:%h%x09%an%x09%cd%x09%cr%x09%s%x09 $* 
 
 }
+
+cls_gitk_reset()
+{
+	cls_color_HEAD
+	echo -e "rm ~/.config/git/gitk"
+	cls_color_reset
+
+	rm ~/.config/git/gitk
+}
