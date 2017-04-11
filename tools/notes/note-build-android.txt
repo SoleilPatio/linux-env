@@ -1,47 +1,25 @@
-#!/bin/bash
-source build/envsetup.sh
-source ./mbldenv.sh
-
-#K2
-lunch full_k2v1_64_op01-userdebug #for k2
-
-#D1
-lunch full_evb6735_64-userdebug
-
-#D2
-#lunch full_evb6735m_64-userdebug 
-lunch full_k35mv1_64-userdebug
-#D2 M0 3.18
-lunch full_k35mv1_bsp-userdebug
-
-
-#D3
-lunch full_evb6753_64-userdebug
-lunch full_k53v1_64_op02-userdebug
-
-#l318
-lunch full_k35v1_64_op02_ks-userdebug 
-lunch full_k35v1_64_l318-userdebug
-
-#Jade
-lunch full_evb6755_64-eng
-lunch full_evb6755_64-userdebug
-lunch full_k55v1_64_op01_teldev-userdebug 
-lunch full_k55v1_64-userdebug 
-lunch full_k55v1_64_op02-userdebug
-lunch full_k55v1_op02-eng   #32-bit for t32?
-
-#Olympus
-lunch full_evb6757_64-eng
-lunch full_evb6757_64-userdebug
-lunch full_k57v1_om_lwctg_lm-userdebug 
-lunch full_k57v1_om_lwctg_lm-eng
-lunch full_k57v1_op02-userdebug
 
 #Whitney
 lunch full_fpga6799_64_ufs-eng
 lunch full_fpga6799_64_sspm-eng
 lunch full_evb99v1_64_ufs-userdebug
- 
+lunch full_k99v1_64-userdebug
+lunch full_k99v1_64_op01_lwctg-userdebug
+lunch full_k99v1_64_lwctg_fhdlcm_cmd-userdebug
+
+#whitney e2
+#ATE+MET
+lunch full_k99v2_64_lwctg_fhdlcm_cmd-userdebug
+#B+M & VsDoF (met+ate)
+lunch full_k99v2_64_baymo_fhdlcm-userdebug
+#we2 phone (2k panel)
+lunch full_k99v2_64_baymo-userdebug
+
+
+
+#!/bin/bash
+source build/envsetup.sh
+source ./mbldenv.sh
+
 mosesq make -j24 2>&1 | tee build.log
 repo sync -f -cq --no-tags -j24 --no-clone-bundle -d
