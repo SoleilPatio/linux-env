@@ -28,7 +28,7 @@ UUID=446e45de-d8f6-427f-b5d8-ca50b685d821 none            swap    sw            
 
 #Use Special Wire
 192.168.4.1:/volume1/LINUX-home /mnemosyne/LINUX-home nfs vers=3,atime,auto,rw,dev,exec,suid 0 0
-192.168.4.1:/volume1/LINUX-common /mnemosyne/LINUX-common nfs vers=3,atime,auto,rw,dev,exec,suid 0 0
+#192.168.4.1:/volume1/LINUX-common /mnemosyne/LINUX-common nfs vers=3,atime,auto,rw,dev,exec,suid 0 0
 192.168.4.1:/volume1/NETDISK-P /mnemosyne/NETDISK-P nfs vers=3,atime,auto,rw,dev,exec,suid 0 0
 
 
