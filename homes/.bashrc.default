@@ -1,5 +1,5 @@
 # set PATH so it includes user's private bin if it exists
-PATH=".:$HOME/bin:$HOME/linux-env/tools:$HOME/linux-env/tools/gadget:$HOME/Project/bin:/mnemosyne/LINUX-common/bin:$PATH"
+PATH=".:$HOME/bin:$HOME/linux-env/tools:$HOME/linux-env/tools/gadget:$HOME/project/cls-tools:$HOME/Project/bin:/mnemosyne/LINUX-common/bin:$PATH"
 PATH="$PATH:$HOME/bin/glassfish4/bin"
 
 # LANG
