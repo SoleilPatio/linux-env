@@ -1,3 +1,9 @@
+[linux]
+#show function
+declare -f <functionname>
+declare -F
+
+
 [repo]
 repo abandon 2015_11_13_02_0
 repo forall -p -c "git checkout -B <branch_name> <start_point:tag_name>
@@ -19,8 +25,7 @@ export OUT_DIR=out_evb6757_64_6630_userdebug
 mtk_sc delete -r gitmtk/alps-mp-m1.mp3-of.p12 [-f]
 
 
-
-[linux]
+[toolchain]
 addr2line -e ./out/target/product/mt6575_evb/symbols/system/lib/libmhaldrv.so d322
 
 [android]

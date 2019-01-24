@@ -2,6 +2,8 @@
 PATH=".:$HOME/bin:$HOME/linux-env/tools:$HOME/linux-env/tools/gadget:$HOME/project/cls-tools:$HOME/Project/bin:/mnemosyne/LINUX-common/bin:$PATH"
 PATH="$PATH:$HOME/bin/glassfish4/bin"
 
+MODULEPATH="$HOME/linux-env/modulefiles:$MODULEPATH"
+
 # LANG
 LANG=en_US.UTF-8
 

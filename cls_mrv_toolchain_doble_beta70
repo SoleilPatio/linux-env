@@ -1,0 +1,20 @@
+#%Module1.0#####################################################################
+#conflict caffe
+#set installdir /home/manager/caffe
+#setenv CAFFE_ROOT    $installdir
+#setenv CAFFE_INCLUDE $installdir/include
+#setenv CAFFE_LIB     $installdir/build/lib
+#prepend-path PATH    $installdir/build/tools
+#prepend-path PYTHONPATH $installdir/python
+
+#prepend-path LD_LIBRARY_PATH /opt/intel/mkl/lib/intel64
+#prepend-path LD_LIBRARY_PATH $installdir/build/lib
+
+
+set CODELINE_VER Doble/md32rv/beta70
+set MRV_MODULE_ROOT /mtkeda/Utility/$CODELINE_VER/ToolChain/LLVM
+
+prepend-path PATH    $MRV_MODULE_ROOT/bin
+
+set-alias clang "clang --target=riscv32 -mcpu=MRV33E25"
+
