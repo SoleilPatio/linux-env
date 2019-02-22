@@ -34,3 +34,11 @@ adb shell input keyevent 26
 
 #unlock screen
 adb shell input keyevent 82
+
+[mosesq]
+mosesq  <your command>
+X1q <your X1 app command>
+
+
+
+
