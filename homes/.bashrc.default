@@ -18,9 +18,10 @@ if [[ $(type -t ll) == "alias" ]]
 	unalias ll
 fi
 
-alias ls='ls -aFh --color=tty'
+alias ls='ls -aFh --color=tty --group-directories-first'
 alias ll='ls -al'
 alias less='less -r'
+alias tree='tree --dirsfirst'
 alias mymosesq='mosesq  . ~/linux-env/homes/.bashrc.default;'
 
 #functions
