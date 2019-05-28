@@ -1,5 +1,17 @@
 #!/bin/bash
 SEPARATOR="---------------------------------"
+
+dospath()
+{
+	echo "pwd:      " $(pwd        | sed -e 's#/proj/mtk[[:digit:]]*/#N:\\#g' -e 's#/#\\#g')
+	echo "realpath: " $(realpath . | sed -e 's#/mfs.*mtk[[:digit:]]*/#M:\\#g' -e 's#/#\\#g')
+}
+
+dirsize()
+{
+	du -sh $*
+}
+
 cls_find_up()
 {
 	#find up cscope.files
