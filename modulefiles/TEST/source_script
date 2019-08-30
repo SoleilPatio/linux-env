@@ -1,0 +1,8 @@
+#%Module1.0#####################################################################
+
+
+if { [module-info mode load] || [module-info mode switch2] } {
+    puts stdout "source ~/linux-env/modulefiles/TEST/source_script_load.sh;"
+} elseif { [module-info mode remove] && ![module-info mode switch3] } {
+    puts stdout "source ~/linux-env/modulefiles/TEST/source_script_unload.sh;"
+}
