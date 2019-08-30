@@ -1,13 +1,13 @@
 #!/bin/bash
 SEPARATOR="---------------------------------"
 
-dospath()
+cls_dospath()
 {
 	echo "pwd:      " $(pwd        | sed -e 's#/proj/mtk[[:digit:]]*/#N:\\#g' -e 's#/#\\#g')
-	echo "realpath: " $(realpath . | sed -e 's#/mfs.*mtk[[:digit:]]*/#M:\\#g' -e 's#/#\\#g')
+	echo "realpath: " $(realpath . | sed -e 's#/mfs.*mtk[[:digit:]]\+/#M:\\#g' -e 's#/#\\#g')
 }
 
-dirsize()
+cls_dirsize()
 {
 	du -sh $*
 }
