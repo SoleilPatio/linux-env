@@ -39,6 +39,7 @@ adb shell input keyevent 82
 mosesq  <your command>
 X1q <your X1 app command>
 bjobs
+bkill
 
 
 
