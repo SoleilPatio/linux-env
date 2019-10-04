@@ -45,13 +45,28 @@ cls_dev_sources_info()
 
 cls_dev_disfun()
 {
+	_gdb_version=`gdb -v | head -n 1 | sed -e "s/^.* \(.*\)$/\1/" | sed -e "s/^\([0-9]*\).*$/\1/"`
+	
+	
 	if [ $# -lt 2 ]
 	then
 		cls_color_HEAD
 		echo command: ${FUNCNAME[ 0 ]} elf function_name
 		cls_color_reset
-	else
+		return
+	fi
+	
+	echo "GDB version $_gdb_version"
+	if [ "$_gdb_version" = "7" ]
+	then
 		_cmd="gdb -batch -q $1 -ex \"disassemble /rs $2\" "
+		cls_color_HEAD
+		echo -e "command:" $_cmd
+		cls_color_reset
+		eval $_cmd
+		
+	else
+		_cmd="gdb -batch -q $1 -ex \"disassemble /rm $2\" "
 		cls_color_HEAD
 		echo -e "command:" $_cmd
 		cls_color_reset
