@@ -59,7 +59,7 @@ cls_dev_disfun()
 	echo "GDB version $_gdb_version"
 	if [ "$_gdb_version" = "7" ]
 	then
-		_cmd="gdb -batch -q $1 -ex \"disassemble /rs $2\" "
+		_cmd="gdb -batch -q $1 -ex \"disassemble /rm $2\" "
 		cls_color_HEAD
 		echo -e "command:" $_cmd
 		cls_color_reset
