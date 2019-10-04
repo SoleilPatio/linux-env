@@ -43,7 +43,22 @@ cls_dev_sources_info()
 
 }
 
+cls_dev_disfun()
+{
+	if [ $# -lt 2 ]
+	then
+		cls_color_HEAD
+		echo command: ${FUNCNAME[ 0 ]} elf function_name
+		cls_color_reset
+	else
+		_cmd="gdb -batch -q $1 -ex \"disassemble /rs $2\" "
+		cls_color_HEAD
+		echo -e "command:" $_cmd
+		cls_color_reset
+		eval $_cmd
+	fi 
 
+}
 
 cls_dev_disfun_mrv()
 {
