@@ -25,6 +25,24 @@ cls_dev_symbol_info()
 
 }
 
+cls_dev_sources_info()
+{
+	if [ $# -lt 1 ]
+	then
+		cls_color_HEAD
+		echo command: ${FUNCNAME[ 0 ]} elf
+		cls_color_reset
+
+	else
+		_cmd="gdb -batch -q $1 -ex \"info sources\" "
+		cls_color_HEAD
+		echo -e "command:" $_cmd
+		cls_color_reset
+		eval $_cmd
+	fi 
+
+}
+
 
 
 cls_dev_disfun_mrv()
