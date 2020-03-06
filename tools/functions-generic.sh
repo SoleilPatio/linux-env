@@ -12,6 +12,12 @@ cls_dirsize()
 	du -sh $*
 }
 
+cls_path_prepend()
+{
+	export PATH=$1:$PATH
+	echo "new PATH="$PATH
+}
+
 cls_find_up()
 {
 	#find up cscope.files
