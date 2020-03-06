@@ -29,6 +29,6 @@ alias mymosesq='mosesq  . ~/linux-env/homes/.bashrc.default;'
 . ~/linux-env/tools/functions-repo.sh
 . ~/linux-env/tools/functions-git.sh
 . ~/linux-env/tools/functions-dev.sh
-. ~/linux-env/tools/functions-MTK.sh > /dev/null 2&>1
+. ~/linux-env/tools/functions-MTK.sh > /dev/null 2>&1
 
 
