@@ -14,7 +14,7 @@ cls_dirsize()
 
 cls_path_prepend()
 {
-	export PATH=$1:$PATH
+	export PATH=`realpath $1`:$PATH
 	echo "new PATH="$PATH
 }
 
